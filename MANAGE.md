@@ -171,6 +171,79 @@ git push
 
 ---
 
+## 🖼️ 替换网站里的图片 / 视频（完整路径表）
+
+网站里所有图片都按用途放在不同文件夹。换图只需"把新图丢进对应文件夹 → 改 data 文件里的路径"。
+
+### 当前所有图片资源清单
+
+| 用途 | 当前文件 | 路径 | 怎么换 |
+|---|---|---|---|
+| Hero 横版风景图框 | 富士山春日营地 | `assets/hero/landscape.jpg` | 把新横版图丢进 `assets/hero/`，然后改 `data/profile.js` 的 `heroLandscape` 字段 |
+| 整页水墨背景纹理 | 山水水墨插画 | `assets/decor/ink-wash.png` | 替换同路径文件即可，文件名保持不变 |
+| 简历↔电商装饰带 | 海岸春景樱花 | `assets/decor/coast.png` | 替换同路径文件，或改 `index.html` 里 `data-img="assets/decor/coast.png"` |
+| 电商↔短剧装饰带 | 日本乡间小火车 | `assets/decor/train.png` | 同上，改 `index.html` 对应的 `data-img` |
+| 短剧↔生活装饰带 | 高山秋色 | `assets/decor/mountain.png` | 同上 |
+| 生活↔联系装饰带 | 金黄秋叶河岸 | `assets/decor/autumn.png` | 同上 |
+| 电商设计作品图 | 你的作品 | `assets/works/ecommerce/` | 在 `data/works.js` 的对应作品 `img` 字段填路径 |
+| 短剧漫剧封面/截图 | 你的作品 | `assets/works/drama/` | 同上 |
+| 生活日常照片 | 你的照片 | `assets/works/life/` | 同上 |
+| 头像（可选） | 你的头像 | `assets/avatar/` | 在 `data/profile.js` 的 `avatar` 字段填路径 |
+
+### 替换装饰带的两种方法
+
+**方法 1（最简单）：直接替换同名文件**
+
+把新图命名为 `coast.png`、`train.png` 等，覆盖 `assets/decor/` 里的同名文件。改完 commit + push，1~2 分钟后公开网站就更新。不需要改任何代码。
+
+**方法 2：换文件名**
+
+如果想用 `.jpg` 而不是 `.png`，或者文件名不一样：
+1. 把新图丢进 `assets/decor/`
+2. 打开 `index.html`，找到这一行（在 02 电商区块前面）：
+   ```html
+   <div class="decorband" data-img="assets/decor/coast.png" aria-hidden="true"></div>
+   ```
+3. 把 `data-img` 的值改成新路径，例如：
+   ```html
+   <div class="decorband" data-img="assets/decor/my-new-banner.jpg" aria-hidden="true"></div>
+   ```
+
+### 视频怎么加？
+
+GitHub Pages 只能托管静态文件，**不能直接上传视频**。短剧漫剧的"视频"是通过外链跳转实现的：
+
+1. 把视频上传到 B 站 / 视频号 / 抖音 / YouTube 等平台
+2. 拿到视频的播放页 URL（例如 `https://www.bilibili.com/video/BV1xxx`）
+3. 在 `data/works.js` 的对应短剧作品里，把 `link` 字段填上这个 URL：
+   ```js
+   {
+     id: 'd001',
+     title: '溯光 · 倒数三日',
+     desc: 'AIGC 分镜 + 配色 + 后期合成 · 短剧系列。',
+     year: '2026',
+     category: '竖屏短剧',
+     img: 'assets/works/drama/d001-cover.jpg',  // ← 封面图（一张图）
+     link: 'https://www.bilibili.com/video/BV1xxx',  // ← 视频播放页 URL
+     duration: 'EP.08'
+   }
+   ```
+4. 用户点这个作品卡片 → 自动跳转到视频播放页
+
+**封面图建议**：从视频里截一张代表性的画面（16:11 横版），命名为 `d001-cover.jpg` 丢进 `assets/works/drama/`。
+
+### 图片格式与大小建议
+
+- **格式**：照片用 `.jpg`，需要透明背景用 `.png`，矢量用 `.svg`
+- **大小**：单张 ≤ 500KB（GitHub 单文件限 100MB，但大了网页加载慢）
+- **Hero 风景图**：横版 4:3，建议 1200×900 像素
+- **作品图**：横版 4:3 或 3:2，建议 800×600 起
+- **装饰带**：超宽横版，建议 1920×400 起（裁切后视觉效果好）
+
+可用 [tinypng.com](https://tinypng.com) 在线压缩图片，免费且不损画质。
+
+---
+
 ## ❓ 常见问题
 
 **Q：图片不显示？**
