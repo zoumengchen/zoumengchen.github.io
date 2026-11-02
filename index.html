@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>孟辰 · 设计工作室作品集</title>
+  <meta
+    name="description"
+    content="电商平面设计 · 短剧漫剧 · 生活记录 — 一位独立设计师的作品集与日常。"
+  />
+  <meta name="author" content="孟辰" />
+
+  <!-- Open Graph：分享到社交平台时的预览 -->
+  <meta property="og:title" content="孟辰 · 设计工作室作品集" />
+  <meta property="og:description" content="电商平面设计 · 短剧漫剧 · 生活记录" />
+  <meta property="og:type" content="website" />
+
+  <!-- 字体：衬线展示字（编辑式优雅）+ 中文衬线 + 中文无衬线正文 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- ============ 顶部导航 ============ -->
+  <nav class="nav" id="nav">
+    <a href="#hero" class="nav__brand">
+      <span class="nav__monogram">ZM</span>
+      <span class="nav__name">孟辰 · Zou</span>
+    </a>
+
+    <button class="nav__toggle" id="navToggle" aria-label="切换菜单">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav__menu" id="navMenu">
+      <li><a href="#about" class="nav__link">简历</a></li>
+      <li><a href="#ecommerce" class="nav__link">电商设计</a></li>
+      <li><a href="#drama" class="nav__link">短剧漫剧</a></li>
+      <li><a href="#life" class="nav__link">生活日常</a></li>
+      <li><a href="#contact" class="nav__link nav__link--cta">联系</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============ Hero ============ -->
+  <header class="hero" id="hero">
+    <div class="hero__inner">
+      <div class="hero__text">
+        <span class="eyebrow">DESIGNER · PORTFOLIO · EST. 2026</span>
+        <h1 class="hero__title">
+          孟辰<span class="hero__title-en">Zou Mengchen</span>
+        </h1>
+        <p class="hero__subtitle">
+          独立设计师 · 电商视觉 / 短剧漫剧 / 生活记录<br />
+          用图像讲故事，让品牌被看见。
+        </p>
+        <div class="hero__actions">
+          <a href="#ecommerce" class="btn btn--primary">查看作品</a>
+          <a href="#contact" class="btn btn--ghost">与我联系</a>
+        </div>
+
+        <div class="hero__stats">
+          <div class="stat">
+            <span class="stat__num">5<sup>+</sup></span>
+            <span class="stat__label">年设计经验</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">120<sup>+</sup></span>
+            <span class="stat__label">交付项目</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">30<sup>+</sup></span>
+            <span class="stat__label">合作品牌</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <!-- 拱形肖像框：参考图 2 的波斯拱门元素 -->
+        <div class="arch">
+          <!-- 占位插画：用户可替换为真实头像 -->
+          <svg viewBox="0 0 400 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="portraitGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#6b7a55" />
+                <stop offset="100%" stop-color="#3a4a2f" />
+              </linearGradient>
+              <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1" fill="#f4ede0" opacity="0.18" />
+              </pattern>
+            </defs>
+            <rect width="400" height="520" fill="url(#portraitGrad)" />
+            <rect width="400" height="520" fill="url(#dots)" />
+            <!-- 简化人物剪影 -->
+            <g fill="#f4ede0" opacity="0.92">
+              <circle cx="200" cy="200" r="62" />
+              <path d="M 110 520 Q 110 360 200 360 Q 290 360 290 520 Z" />
+            </g>
+            <text x="200" y="490" text-anchor="middle"
+                  font-family="Cormorant Garamond, serif" font-size="18"
+                  fill="#f4ede0" opacity="0.7" font-style="italic">
+              你的头像
+            </text>
+          </svg>
+        </div>
+
+        <!-- 拱形框上方的装饰星 -->
+        <svg class="hero__sparkle" viewBox="0 0 40 40" aria-hidden="true">
+          <path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="#b89b5e" />
+        </svg>
+
+        <!-- 浮动信息卡：参考图 2 的拍卖卡片 -->
+        <div class="hero__card">
+          <span class="hero__card-label">现居</span>
+          <span class="hero__card-value">中国 · 杭州</span>
+        </div>
+      </div>
+    </div>
+
+    <a href="#about" class="hero__scroll" aria-label="向下滚动">
+      <span>SCROLL</span>
+      <span class="hero__scroll-line"></span>
+    </a>
+  </header>
+
+  <!-- ============ 01 · 简历 ============ -->
+  <section class="section" id="about">
+    <div class="section__head">
+      <span class="section__num">01</span>
+      <span class="section__rule"></span>
+      <span class="section__label">RESUME / 简历</span>
+    </div>
+
+    <h2 class="section__title">关于我</h2>
+
+    <div class="about__grid">
+      <div class="about__bio">
+        <p>
+          你好，我是<span class="accent">孟辰</span>，一名独立视觉设计师。
+          过去五年里，我专注于电商视觉设计与短剧漫剧创作，
+          为多个消费品牌打造从详情页、主图到品牌 KV 的完整视觉链路。
+        </p>
+        <p>
+          我相信"好的设计是被人看见的叙事"——
+          无论是产品页的转化路径，还是短剧里的镜头节奏，
+          最终都在讲一个让人愿意停留的故事。
+        </p>
+
+        <div class="about__tags">
+          <span>电商详情页</span>
+          <span>品牌主视觉</span>
+          <span>短剧分镜</span>
+          <span>漫剧配色</span>
+          <span>动效合成</span>
+          <span>Adobe 全家桶</span>
+        </div>
+
+        <a href="#" class="link-arrow" download>
+          <span>下载完整简历 PDF</span>
+          <span class="link-arrow__icon">↓</span>
+        </a>
+      </div>
+
+      <div class="about__timeline">
+        <h3 class="timeline__heading">教育与经历</h3>
+
+        <ol class="timeline">
+          <li class="timeline__item">
+            <span class="timeline__year">2026 — 至今</span>
+            <span class="timeline__title">独立设计师 / 自由职业</span>
+            <span class="timeline__desc">承接电商视觉与短剧漫剧项目，服务过消费、美妆、文娱等多个行业品牌。</span>
+          </li>
+          <li class="timeline__item">
+            <span class="timeline__year">2022 — 2026</span>
+            <span class="timeline__title">视觉设计师 · 某电商品牌部</span>
+            <span class="timeline__desc">主导大促活动视觉（618 / 双11），搭建品牌视觉规范，详情页转化率提升 23%。</span>
+          </li>
+          <li class="timeline__item">
+            <span class="timeline__year">2018 — 2022</span>
+            <span class="timeline__title">视觉传达设计 · 本科</span>
+            <span class="timeline__desc">系统学习平面、字体、版式与动态设计，毕业作品获院级优秀。</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 · 电商平面设计 ============ -->
+  <section class="section section--deep" id="ecommerce">
+    <div class="section__head">
+      <span class="section__num">02</span>
+      <span class="section__rule"></span>
+      <span class="section__label">E-COMMERCE / 电商平面设计</span>
+    </div>
+
+    <h2 class="section__title">让产品被看见</h2>
+    <p class="section__lede">
+      从主图、详情页到大促 KV——为品牌的每一次曝光，搭建完整的视觉叙事链路。
+    </p>
+
+    <div class="works__grid">
+      <!-- 卡片 1 -->
+      <article class="work work--tall" data-category="详情页">
+        <div class="work__media" data-bg="sage">
+          <span class="work__year">2026</span>
+          <span class="work__type">详情页设计</span>
+        </div>
+        <div class="work__info">
+          <h3 class="work__title">护肤品牌 · 长图详情页</h3>
+          <p class="work__desc">主推成分可视化 + 卖点分镜，撑起 30 屏长图叙事。</p>
+        </div>
+      </article>
+
+      <!-- 卡片 2 -->
+      <article class="work" data-category="主图">
+        <div class="work__media" data-bg="terra">
+          <span class="work__year">2026</span>
+          <span class="work__type">直通车主图</span>
+        </div>
+        <div class="work__info">
+          <h3 class="work__title">小家电 · 五图全套</h3>
+          <p class="work__desc">场景化使用情境 + 卖点提炼，CTR 提升 18%。</p>
+        </div>
+      </article>
+
+      <!-- 卡片 3 -->
+      <article class="work" data-category="KV">
+        <div class="work__media" data-bg="tan">
+          <span class="work__year">2025</span>
+          <span class="work__type">大促主视觉</span>
+        </div>
+        <div class="work__info">
+          <h3 class="work__title">双11 · 品牌主视觉</h3>
+          <p class="work__desc">跨品类联动 KV，统一全渠道视觉语言。</p>
+        </div>
+      </article>
+
+      <!-- 卡片 4 -->
+      <article class="work work--wide" data-category="Banner">
+        <div class="work__media" data-bg="forest">
+          <span class="work__year">2025</span>
+          <span class="work__type">活动 Banner 组</span>
+        </div>
+        <div class="work__info">
+          <h3 class="work__title">618 全周期 Banner</h3>
+          <p class="work__desc">预热 / 爆发 / 返场三阶段，共 24 张系列延展。</p>
+        </div>
+      </article>
+
+      <!-- 卡片 5 -->
+      <article class="work" data-category="包装">
+        <div class="work__media" data-bg="sage">
+          <span class="work__year">2024</span>
+          <span class="work__type">礼盒包装</span>
+        </div>
+        <div class="work__info">
+          <h3 class="work__title">春节限定礼盒</h3>
+          <p class="work__desc">非遗纹样重构 + 烫金工艺，单 SKU 售罄率 96%。</p>
+        </div>
+      </article>
+
+      <!-- 卡片 6 -->
+      <article class="work" data-category="详情页">
+        <div class="work__media" data-bg="terra">
+          <span class="work__year">2024</span>
+          <span class="work__type">详情页设计</span>
+        </div>
+        <div class="work__info">
+          <h3 class="work__title">食品类目 · 详情页</h3>
+          <p class="work__desc">原料溯源 + 食欲感镜头，吃透品类决策路径。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ 03 · 短剧漫剧 ============ -->
+  <section class="section" id="drama">
+    <div class="section__head">
+      <span class="section__num">03</span>
+      <span class="section__rule"></span>
+      <span class="section__label">DRAMA / 短剧 · 漫剧</span>
+    </div>
+
+    <h2 class="section__title">镜头里的故事</h2>
+    <p class="section__lede">
+      从分镜脚本到最终成片——把品牌、人物、情绪变成一帧一帧的节奏。
+    </p>
+
+    <div class="drama__list">
+      <article class="drama">
+        <div class="drama__thumb" data-bg="terra">
+          <button class="drama__play" aria-label="播放预览">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <span class="drama__duration">12:34</span>
+          <span class="drama__ep">EP.08</span>
+        </div>
+        <div class="drama__info">
+          <span class="drama__cat">竖屏短剧</span>
+          <h3 class="drama__title">溯光 · 倒数三日</h3>
+          <p class="drama__desc">分镜 / 配色 / 后期合成 · 90 集短剧系列，单集播放破百万。</p>
+        </div>
+      </article>
+
+      <article class="drama">
+        <div class="drama__thumb" data-bg="sage">
+          <button class="drama__play" aria-label="播放预览">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <span class="drama__duration">08:12</span>
+          <span class="drama__ep">EP.03</span>
+        </div>
+        <div class="drama__info">
+          <span class="drama__cat">漫剧</span>
+          <h3 class="drama__title">雾港档案</h3>
+          <p class="drama__desc">分镜插画 + 节奏剪辑 · 悬疑题材，B 端评分 8.6。</p>
+        </div>
+      </article>
+
+      <article class="drama">
+        <div class="drama__thumb" data-bg="forest">
+          <button class="drama__play" aria-label="播放预览">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <span class="drama__duration">15:08</span>
+          <span class="drama__ep">EP.12</span>
+        </div>
+        <div class="drama__info">
+          <span class="drama__cat">竖屏短剧</span>
+          <h3 class="drama__title">半夏与茶</h3>
+          <p class="drama__desc">视觉监督 · 治愈系日常向，主角 IP 衍生品销售超预期。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ 04 · 生活日常 ============ -->
+  <section class="section section--deep" id="life">
+    <div class="section__head">
+      <span class="section__num">04</span>
+      <span class="section__rule"></span>
+      <span class="section__label">JOURNAL / 生活日常</span>
+    </div>
+
+    <h2 class="section__title">画外的事</h2>
+    <p class="section__lede">
+      做设计之外，我也在记录——一杯咖啡、一段路、一次失败的菜。
+    </p>
+
+    <div class="journal__grid">
+      <article class="journal">
+        <div class="journal__media" data-bg="tan">
+          <span class="journal__date">11·02</span>
+        </div>
+        <div class="journal__body">
+          <span class="journal__tag">手帐</span>
+          <h3 class="journal__title">十月的颜色摘抄</h3>
+          <p class="journal__excerpt">从街角银杏到灶台番茄——把这个月遇到的红色都贴进了本子。</p>
+        </div>
+      </article>
+
+      <article class="journal">
+        <div class="journal__media" data-bg="sage">
+          <span class="journal__date">10·28</span>
+        </div>
+        <div class="journal__body">
+          <span class="journal__tag">在路上</span>
+          <h3 class="journal__title">乌镇的一个下午</h3>
+          <p class="journal__excerpt">河边的茶馆、船桨的水声——放空是另一种创作。</p>
+        </div>
+      </article>
+
+      <article class="journal">
+        <div class="journal__media" data-bg="terra">
+          <span class="journal__date">10·19</span>
+        </div>
+        <div class="journal__body">
+          <span class="journal__tag">厨房</span>
+          <h3 class="journal__title">第一次成功的舒芙蕾</h3>
+          <p class="journal__excerpt">蛋白打发到提起来有尖角——和做设计一样，分寸感最重要。</p>
+        </div>
+      </article>
+
+      <article class="journal">
+        <div class="journal__media" data-bg="forest">
+          <span class="journal__date">10·11</span>
+        </div>
+        <div class="journal__body">
+          <span class="journal__tag">读纸</span>
+          <h3 class="journal__title">重读《设计中的设计》</h3>
+          <p class="journal__excerpt">原研哉那句"再熟悉化"——每次读都有新解。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ 05 · 联系 ============ -->
+  <footer class="footer" id="contact">
+    <div class="footer__inner">
+      <div class="footer__main">
+        <span class="section__num">05</span>
+        <h2 class="footer__headline">有项目想聊聊？</h2>
+        <p class="footer__lede">
+          电商视觉、短剧漫剧、品牌合作——欢迎来信。<br />
+          通常 24 小时内回复。
+        </p>
+
+        <a href="mailto:your@email.com" class="footer__email">
+          your@email.com
+          <span class="link-arrow__icon">→</span>
+        </a>
+      </div>
+
+      <div class="footer__links">
+        <div class="footer__col">
+          <h4>作品</h4>
+          <a href="#ecommerce">电商设计</a>
+          <a href="#drama">短剧漫剧</a>
+          <a href="#life">生活日常</a>
+        </div>
+        <div class="footer__col">
+          <h4>关注我</h4>
+          <a href="https://github.com/zoumengchen" target="_blank" rel="noopener">GitHub</a>
+          <a href="#" target="_blank" rel="noopener">小红书</a>
+          <a href="#" target="_blank" rel="noopener">微博</a>
+        </div>
+        <div class="footer__col">
+          <h4>其它</h4>
+          <a href="#about">关于我</a>
+          <a href="#">简历下载</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© 2026 孟辰 · Zou Mengchen</span>
+      <span>Crafted with care · Hosted on GitHub Pages</span>
+    </div>
+  </footer>
+
+  <!-- 灯箱：点作品图放大预览 -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" aria-label="关闭">×</button>
+    <div class="lightbox__content" id="lightboxContent"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
