@@ -1,138 +1,341 @@
 /* ============================================================
-   交互脚本：导航状态 / 滚动高亮 / 移动菜单 / 灯箱预览
+   交互脚本 —— 从 data/profile.js + data/works.js 渲染整个网站
    ============================================================ */
 
 (function () {
   'use strict';
 
-  /* ---------- 1. 导航：滚动后变状态 ---------- */
+  const P = window.SITE_PROFILE || {};
+  const W = window.SITE_WORKS  || { ecommerce: [], drama: [], life: [] };
+
+  /* ---------- 1. 注入个人信息 ---------- */
+  const setText = (id, val) => { const el = document.getElementById(id); if (el && val != null) el.textContent = val; };
+
+  setText('navMonogram', P.monogram);
+  setText('navName',     P.name || P.nameCN);
+
+  if (P.tagline) {
+    const sub = document.getElementById('heroSubtitle');
+    if (sub)   sub.innerHTML = P.tagline + (P.intro ? '<br />' + P.intro : '');
+  }
+
+  // Hero 统计
+  const statsBox = document.getElementById('heroStats');
+  if (statsBox && Array.isArray(P.stats)) {
+    statsBox.innerHTML = P.stats.map(s => `
+      <div class="stat">
+        <span class="stat__num">${s.num}<sup>+</sup></span>
+        <span class="stat__label">${s.label}</span>
+      </div>
+    `).join('');
+  }
+
+  // Hero 横版风景图框
+  const frame = document.getElementById('heroFrame');
+  if (frame) {
+    // 优先级：profile.heroLandscape > profile.avatar > 默认风景图
+    const heroImg = P.heroLandscape || P.avatar || 'assets/hero/landscape.jpg';
+    frame.innerHTML = `<img src="${heroImg}" alt="${P.name || '横版风景'}" loading="eager">`;
+  }
+
+  // 装饰带：从 HTML data-img 属性读取并设置背景
+  document.querySelectorAll('.decorband[data-img]').forEach(el => {
+    el.style.backgroundImage = `url('${el.dataset.img}')`;
+  });
+
+  if (P.email) {
+    const e = document.getElementById('footerEmail');
+    if (e) e.href = 'mailto:' + P.email;
+  }
+
+  /* ---------- 2. Footer 社交链接（只渲染填了 url 的） ---------- */
+  const sBox = document.getElementById('footerSocials');
+  if (sBox && Array.isArray(P.socials)) {
+    const filled = P.socials.filter(s => s.url && s.url.trim());
+    if (filled.length === 0) {
+      sBox.innerHTML = '<span class="footer__placeholder">社交链接待填<br>见 data/profile.js</span>';
+    } else {
+      sBox.innerHTML = filled.map(s =>
+        `<a href="${s.url}" target="_blank" rel="noopener" title="${s.name}">${s.name}</a>`
+      ).join('');
+    }
+  }
+
+  /* ---------- 3. 导航：滚动后状态 ---------- */
   const nav = document.getElementById('nav');
-  const onScroll = () => {
-    if (window.scrollY > 30) nav.classList.add('is-scrolled');
-    else nav.classList.remove('is-scrolled');
-  };
+  const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 30);
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* ---------- 2. 移动菜单切换 ---------- */
+  /* ---------- 4. 移动菜单 ---------- */
   const navToggle = document.getElementById('navToggle');
-  const navMenu = document.getElementById('navMenu');
-
+  const navMenu   = document.getElementById('navMenu');
   const closeMenu = () => {
     navToggle.classList.remove('is-open');
     navMenu.classList.remove('is-open');
     document.body.style.overflow = '';
   };
-
   navToggle.addEventListener('click', () => {
     const isOpen = navToggle.classList.toggle('is-open');
     navMenu.classList.toggle('is-open', isOpen);
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
-
-  // 点菜单项后自动关闭
-  navMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', closeMenu);
-  });
-
-  // 点击菜单外区域关闭
+  navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
   document.addEventListener('click', (e) => {
-    if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('is-open')) {
-      closeMenu();
-    }
+    if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('is-open')) closeMenu();
   });
 
-  /* ---------- 3. 滚动高亮当前导航 ---------- */
-  const sections = ['about', 'ecommerce', 'drama', 'life', 'contact']
-    .map(id => document.getElementById(id))
-    .filter(Boolean);
-
+  /* ---------- 5. 滚动高亮 ---------- */
+  const sections = ['about', 'ecommerce', 'drama', 'life', 'contact'].map(id => document.getElementById(id)).filter(Boolean);
   const navLinks = Array.from(document.querySelectorAll('.nav__link'));
-  const setActive = (id) => {
-    navLinks.forEach(l => {
-      const target = l.getAttribute('href').replace('#', '');
-      l.classList.toggle('is-active', target === id);
-    });
-  };
-
+  const setActive = (id) => navLinks.forEach(l => l.classList.toggle('is-active', l.getAttribute('href').replace('#', '') === id));
   if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) setActive(entry.target.id);
-      });
-    }, { rootMargin: '-40% 0px -55% 0px' });
-    sections.forEach(s => io.observe(s));
+    new IntersectionObserver(es => es.forEach(en => en.isIntersecting && setActive(en.target.id)),
+      { rootMargin: '-40% 0px -55% 0px' }).observe && sections.forEach(s => {
+      const io = new IntersectionObserver(es => es.forEach(en => en.isIntersecting && setActive(en.target.id)),
+        { rootMargin: '-40% 0px -55% 0px' });
+      io.observe(s);
+    });
   }
 
-  /* ---------- 4. 灯箱：点作品图预览 ---------- */
-  const lightbox = document.getElementById('lightbox');
-  const lightboxContent = document.getElementById('lightboxContent');
-  const lightboxClose = lightbox.querySelector('.lightbox__close');
+  /* ---------- 6. 作品渲染 + 筛选 ---------- */
+  // 按分类给背景色：fallback 渐变占位图（已切到浅蓝/薄荷/浅粉/金调）
+  const BG_FOR = {
+    sage:   'linear-gradient(135deg, #d4e8db, #8eb89e)',   // 薄荷绿
+    forest: 'linear-gradient(135deg, #c8dde8, #5a8aa8)',   // 蓝
+    terra:  'linear-gradient(135deg, #f0d8df, #d4a0b0)',   // 浅粉
+    tan:    'linear-gradient(135deg, #e8dab8, #c9b68a)'    // 古典金
+  };
+  // 把分类标签映射到一个背景色，让没图也好看
+  const CAT_BG = {
+    // 电商
+    '详情页': 'sage', '主图': 'terra', '主视觉': 'tan', 'Banner': 'forest', '包装': 'sage',
+    // 漫剧
+    '竖屏短剧': 'terra', '漫剧': 'sage', '分镜': 'forest',
+    // 日常
+    '手帐': 'tan', '在路上': 'sage', '厨房': 'terra', '读纸': 'forest', '灵感': 'tan'
+  };
+  function bgFor(category) { return BG_FOR[CAT_BG[category] || 'sage']; }
 
-  const openLightbox = (el) => {
-    const title = el.querySelector('.work__title, .drama__title, .journal__title')?.textContent || '作品预览';
-    const desc  = el.querySelector('.work__desc, .drama__desc, .journal__excerpt')?.textContent || '';
-    const bg    = el.querySelector('[data-bg]')?.getAttribute('data-bg') || 'sage';
+  /* —— 6.1 电商 —— */
+  function renderEcommerce(filter) {
+    const grid = document.getElementById('grid-ecommerce');
+    const all = W.ecommerce || [];
+    const list = filter === 'all' ? all : all.filter(w => w.category === filter);
 
-    const bgMap = {
-      sage:   'linear-gradient(135deg, #6b7a55, #4a5a3a)',
-      forest: 'linear-gradient(135deg, #4a5a3f, #2e3a25)',
-      terra:  'linear-gradient(135deg, #d18858, #b36538)',
-      tan:    'linear-gradient(135deg, #c9ad70, #a3863f)'
-    };
+    document.getElementById('empty-ecommerce').hidden = list.length > 0;
 
-    lightboxContent.innerHTML = `
-      <div style="height:100%;display:flex;flex-direction:column;justify-content:flex-end;
-                  padding:2rem;background:${bgMap[bg]};color:#f4ede0;">
-        <div style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.8;margin-bottom:.5rem;">PREVIEW</div>
-        <h3 style="font-family:'Noto Serif SC',serif;font-size:1.5rem;font-weight:500;margin-bottom:.5rem;">${title}</h3>
-        <p style="font-size:.9rem;opacity:.85;line-height:1.6;">${desc}</p>
-        <p style="margin-top:1.4rem;font-size:.8rem;opacity:.6;font-style:italic;font-family:'Cormorant Garamond',serif;">
-          这是一张占位插画 —— 在 index.html 中替换为你的真实作品图，此处就会显示图片。
-        </p>
-      </div>
-    `;
+    grid.innerHTML = list.map(w => {
+      const sizeClass = w.size === 'tall' ? 'work--tall' :
+                        w.size === 'wide' ? 'work--wide' : '';
+      const media = w.img
+        ? `<img src="${w.img}" alt="${w.title}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`
+        : `<div class="work__media" data-bg="${CAT_BG[w.category] || 'sage'}">
+             <span class="work__year">${w.year || ''}</span>
+             <span class="work__type">${w.category || ''}</span>
+           </div>`;
+      return `
+        <article class="work ${sizeClass}" data-id="${w.id}">
+          ${media}
+          <div class="work__info">
+            <h3 class="work__title">${w.title}</h3>
+            <p class="work__desc">${w.desc || ''}</p>
+          </div>
+        </article>`;
+    }).join('');
+  }
+
+  /* —— 6.2 漫剧 —— */
+  function renderDrama(filter) {
+    const grid = document.getElementById('grid-drama');
+    const all = W.drama || [];
+    const list = filter === 'all' ? all : all.filter(w => w.category === filter);
+
+    document.getElementById('empty-drama').hidden = list.length > 0;
+
+    grid.innerHTML = list.map(w => {
+      const bg = CAT_BG[w.category] || 'sage';
+      const thumbInner = w.img
+        ? `<img src="${w.img}" alt="${w.title}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">`
+        : '';
+      return `
+        <article class="drama" data-id="${w.id}" data-link="${w.link || ''}">
+          <div class="drama__thumb" data-bg="${bg}">
+            ${thumbInner}
+            <button class="drama__play" aria-label="播放预览">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="drama__duration">${w.duration || ''}</span>
+          </div>
+          <div class="drama__info">
+            <span class="drama__cat">${w.category || ''}</span>
+            <h3 class="drama__title">${w.title}</h3>
+            <p class="drama__desc">${w.desc || ''}</p>
+          </div>
+        </article>`;
+    }).join('');
+  }
+
+  /* —— 6.3 日常 —— */
+  function renderLife(filter) {
+    const grid = document.getElementById('grid-life');
+    const all = W.life || [];
+    const list = filter === 'all' ? all : all.filter(w => w.category === filter);
+
+    document.getElementById('empty-life').hidden = list.length > 0;
+
+    grid.innerHTML = list.map(w => {
+      const bg = CAT_BG[w.category] || 'sage';
+      const media = w.img
+        ? `<img src="${w.img}" alt="${w.title}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">`
+        : `<div class="journal__media" data-bg="${bg}">
+             <span class="journal__date">${w.date || ''}</span>
+           </div>`;
+      return `
+        <article class="journal" data-id="${w.id}">
+          ${media}
+          <div class="journal__body">
+            <span class="journal__tag">${w.category || ''}</span>
+            <h3 class="journal__title">${w.title}</h3>
+            <p class="journal__excerpt">${w.desc || ''}</p>
+          </div>
+        </article>`;
+    }).join('');
+  }
+
+  // 6.0 入口：每个 section 渲染 + 筛选 UI 自动生成
+  function setupSection(sectionKey, renderFn) {
+    const filterBox = document.getElementById('filter-' + sectionKey);
+    if (!filterBox) return;
+
+    const items = W[sectionKey] || [];
+    const cats = Array.from(new Set(items.map(w => w.category).filter(Boolean)));
+
+    // 生成筛选按钮（"全部"已存在）
+    cats.forEach(c => {
+      const btn = document.createElement('button');
+      btn.className = 'filterbar__btn';
+      btn.dataset.filter = c;
+      btn.textContent = c;
+      filterBox.appendChild(btn);
+    });
+
+    filterBox.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filterbar__btn');
+      if (!btn) return;
+      filterBox.querySelectorAll('.filterbar__btn').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      renderFn(btn.dataset.filter);
+      bindCardEvents();
+    });
+
+    renderFn('all');
+  }
+
+  setupSection('ecommerce', renderEcommerce);
+  setupSection('drama',     renderDrama);
+  setupSection('life',      renderLife);
+
+  /* ---------- 7. 灯箱 ---------- */
+  const lightbox         = document.getElementById('lightbox');
+  const lightboxContent  = document.getElementById('lightboxContent');
+  const lightboxClose     = lightbox.querySelector('.lightbox__close');
+
+  function openMedia(data) {
+    // data: { title, desc, img, bg, link }
+    if (data.link) {
+      // 有外部链接 → 新窗口打开
+      window.open(data.link, '_blank', 'noopener');
+      return;
+    }
+    if (data.img) {
+      lightboxContent.innerHTML = `
+        <div style="height:100%;display:flex;flex-direction:column;background:#f4ede0;">
+          <img src="${data.img}" alt="${data.title}" style="width:100%;flex:1;object-fit:contain;background:#1d1d1b;">
+          <div style="padding:1.4rem 1.6rem;border-top:1px solid #cabfa9;">
+            <h3 style="font-family:'Noto Serif SC',serif;font-size:1.2rem;font-weight:500;color:#2b2520;margin-bottom:.3rem;">${data.title}</h3>
+            <p style="font-size:.88rem;color:#5c534a;line-height:1.6;">${data.desc || ''}</p>
+          </div>
+        </div>`;
+    } else {
+      // 占位渐变
+      lightboxContent.innerHTML = `
+        <div style="height:100%;display:flex;flex-direction:column;justify-content:flex-end;
+                    padding:2rem;background:${bgFor(data.category)};color:#f4ede0;">
+          <div style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;opacity:.8;margin-bottom:.5rem;">PREVIEW · 待上传图片</div>
+          <h3 style="font-family:'Noto Serif SC',serif;font-size:1.5rem;font-weight:500;margin-bottom:.5rem;">${data.title}</h3>
+          <p style="font-size:.9rem;opacity:.85;line-height:1.6;">${data.desc || ''}</p>
+          <p style="margin-top:1.4rem;font-size:.8rem;opacity:.7;font-style:italic;font-family:'Cormorant Garamond',serif;">
+            将图片放进 assets/works/${data.section}/ 目录，
+            然后在 data/works.js 对应作品的 img 字段填上路径，这里就会显示图片。
+          </p>
+        </div>`;
+    }
     lightbox.classList.add('is-open');
     document.body.style.overflow = 'hidden';
-  };
-
-  const closeLightbox = () => {
+  }
+  function closeLightbox() {
     lightbox.classList.remove('is-open');
     document.body.style.overflow = '';
-  };
-
-  document.querySelectorAll('.work, .drama, .journal').forEach(el => {
-    el.addEventListener('click', () => openLightbox(el));
-  });
+  }
   lightboxClose.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeLightbox();
-      closeMenu();
-    }
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeLightbox(); closeMenu(); }
   });
 
-  /* ---------- 5. 元素入场动画 ---------- */
+  // 绑定卡片点击事件（每次 render 完要重新绑）
+  function bindCardEvents() {
+    document.querySelectorAll('.work').forEach(card => {
+      card.onclick = () => {
+        const id = card.dataset.id;
+        const data = (W.ecommerce || []).find(w => w.id === id);
+        if (!data) return;
+        openMedia({ ...data, section: 'ecommerce' });
+      };
+    });
+    document.querySelectorAll('.drama').forEach(card => {
+      card.onclick = () => {
+        const id   = card.dataset.id;
+        const link = card.dataset.link;
+        const data = (W.drama || []).find(w => w.id === id);
+        if (!data) return;
+        openMedia({ ...data, link });
+      };
+    });
+    document.querySelectorAll('.journal').forEach(card => {
+      card.onclick = () => {
+        const id = card.dataset.id;
+        const data = (W.life || []).find(w => w.id === id);
+        if (!data) return;
+        openMedia({ ...data, section: 'life' });
+      };
+    });
+  }
+  bindCardEvents();
+
+  /* ---------- 8. 入场动画 ---------- */
   if ('IntersectionObserver' in window) {
-    const reveal = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-          reveal.unobserve(entry.target);
+    const reveal = new IntersectionObserver(es => {
+      es.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.style.opacity = '1';
+          en.target.style.transform = 'translateY(0)';
+          reveal.unobserve(en.target);
         }
       });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
 
-    document.querySelectorAll('.work, .drama, .journal, .timeline__item, .stat').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(24px)';
-      el.style.transition = 'opacity .8s cubic-bezier(0.22,1,0.36,1), transform .8s cubic-bezier(0.22,1,0.36,1)';
-      reveal.observe(el);
-    });
+    const observe = (sel) => {
+      document.querySelectorAll(sel).forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(24px)';
+        el.style.transition = 'opacity .8s cubic-bezier(0.22,1,0.36,1), transform .8s cubic-bezier(0.22,1,0.36,1)';
+        reveal.observe(el);
+      });
+    };
+    observe('.timeline__item, .stat');
+    // 作品卡片在新渲染后再绑一次
+    setTimeout(() => observe('.work, .drama, .journal'), 100);
   }
-
-  /* ---------- 6. 当前年份 ---------- */
-  // 已在 HTML 中硬编码 2026，留接口方便日后扩展
 })();

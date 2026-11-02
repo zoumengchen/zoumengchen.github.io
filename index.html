@@ -3,35 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>孟辰 · 设计工作室作品集</title>
-  <meta
-    name="description"
-    content="电商平面设计 · 短剧漫剧 · 生活记录 — 一位独立设计师的作品集与日常。"
-  />
-  <meta name="author" content="孟辰" />
+  <title>zoumengchen · 设计工作室作品集</title>
+  <meta name="description" content="AIGC 创作 · 电商视觉 · 短剧漫剧 · 生活记录 | zoumengchen 的个人作品集。" />
+  <meta name="author" content="zoumengchen" />
 
-  <!-- Open Graph：分享到社交平台时的预览 -->
-  <meta property="og:title" content="孟辰 · 设计工作室作品集" />
-  <meta property="og:description" content="电商平面设计 · 短剧漫剧 · 生活记录" />
+  <meta property="og:title" content="zoumengchen · 设计工作室作品集" />
+  <meta property="og:description" content="AIGC 创作 · 电商视觉 · 短剧漫剧 · 生活记录" />
   <meta property="og:type" content="website" />
 
-  <!-- 字体：衬线展示字（编辑式优雅）+ 中文衬线 + 中文无衬线正文 -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@300;400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@200;300;400;500;600;700&display=swap"
     rel="stylesheet"
   />
 
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- 数据文件 —— 用户改作品/资料就改这两个文件 -->
+  <script src="data/profile.js"></script>
+  <script src="data/works.js"></script>
 </head>
 
 <body>
   <!-- ============ 顶部导航 ============ -->
   <nav class="nav" id="nav">
     <a href="#hero" class="nav__brand">
-      <span class="nav__monogram">ZM</span>
-      <span class="nav__name">孟辰 · Zou</span>
+      <span class="nav__monogram" id="navMonogram">ZM</span>
+      <span class="nav__name" id="navName">zoumengchen</span>
     </a>
 
     <button class="nav__toggle" id="navToggle" aria-label="切换菜单">
@@ -51,73 +50,90 @@
   <header class="hero" id="hero">
     <div class="hero__inner">
       <div class="hero__text">
-        <span class="eyebrow">DESIGNER · PORTFOLIO · EST. 2026</span>
+        <span class="eyebrow">DESIGNER · AIGC CREATOR · PORTFOLIO</span>
         <h1 class="hero__title">
-          孟辰<span class="hero__title-en">Zou Mengchen</span>
+          zoumengchen<span class="hero__title-en">邹梦晨 · Zou Mengchen</span>
         </h1>
-        <p class="hero__subtitle">
-          独立设计师 · 电商视觉 / 短剧漫剧 / 生活记录<br />
-          用图像讲故事，让品牌被看见。
+        <p class="hero__subtitle" id="heroSubtitle">
+          独立视觉设计师 · AIGC 创作 / 电商视觉 / 短剧漫剧<br />
+          用 AI 与设计，让内容被看见。
         </p>
         <div class="hero__actions">
           <a href="#ecommerce" class="btn btn--primary">查看作品</a>
           <a href="#contact" class="btn btn--ghost">与我联系</a>
         </div>
 
-        <div class="hero__stats">
-          <div class="stat">
-            <span class="stat__num">5<sup>+</sup></span>
-            <span class="stat__label">年设计经验</span>
-          </div>
-          <div class="stat">
-            <span class="stat__num">120<sup>+</sup></span>
-            <span class="stat__label">交付项目</span>
-          </div>
-          <div class="stat">
-            <span class="stat__num">30<sup>+</sup></span>
-            <span class="stat__label">合作品牌</span>
-          </div>
-        </div>
+        <div class="hero__stats" id="heroStats"><!-- JS 渲染 --></div>
       </div>
 
       <div class="hero__visual">
-        <!-- 拱形肖像框：参考图 2 的波斯拱门元素 -->
-        <div class="arch">
-          <!-- 占位插画：用户可替换为真实头像 -->
-          <svg viewBox="0 0 400 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="portraitGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#6b7a55" />
-                <stop offset="100%" stop-color="#3a4a2f" />
-              </linearGradient>
-              <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse">
-                <circle cx="2" cy="2" r="1" fill="#f4ede0" opacity="0.18" />
-              </pattern>
-            </defs>
-            <rect width="400" height="520" fill="url(#portraitGrad)" />
-            <rect width="400" height="520" fill="url(#dots)" />
-            <!-- 简化人物剪影 -->
-            <g fill="#f4ede0" opacity="0.92">
-              <circle cx="200" cy="200" r="62" />
-              <path d="M 110 520 Q 110 360 200 360 Q 290 360 290 520 Z" />
-            </g>
-            <text x="200" y="490" text-anchor="middle"
-                  font-family="Cormorant Garamond, serif" font-size="18"
-                  fill="#f4ede0" opacity="0.7" font-style="italic">
-              你的头像
-            </text>
-          </svg>
-        </div>
-
-        <!-- 拱形框上方的装饰星 -->
-        <svg class="hero__sparkle" viewBox="0 0 40 40" aria-hidden="true">
-          <path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="#b89b5e" />
+        <!-- 鲜花装饰：左上角（浅蓝/浅粉/白） -->
+        <svg class="hero__floral hero__floral--tl" viewBox="0 0 200 200" aria-hidden="true">
+          <!-- 主花 1：白色玫瑰 -->
+          <g transform="translate(40 50)">
+            <circle r="22" fill="#faf6ef" stroke="#e8c5d0" stroke-width="1"/>
+            <circle r="16" fill="#faf6ef" stroke="#e8c5d0" stroke-width="0.8"/>
+            <circle r="10" fill="#faf6ef" stroke="#d4a0b0" stroke-width="0.6"/>
+            <circle r="5"  fill="#e8c5d0"/>
+          </g>
+          <!-- 主花 2：浅粉色玫瑰 -->
+          <g transform="translate(95 30)">
+            <circle r="18" fill="#f0d8df" stroke="#d4a0b0" stroke-width="0.8"/>
+            <circle r="13" fill="#f0d8df" stroke="#d4a0b0" stroke-width="0.6"/>
+            <circle r="8"  fill="#e8c5d0"/>
+            <circle r="4"  fill="#d4a0b0"/>
+          </g>
+          <!-- 主花 3：浅蓝色花 -->
+          <g transform="translate(150 75)">
+            <circle r="16" fill="#c8dde8" stroke="#7ba8c4" stroke-width="0.8"/>
+            <circle r="11" fill="#c8dde8" stroke="#7ba8c4" stroke-width="0.6"/>
+            <circle r="6"  fill="#7ba8c4"/>
+          </g>
+          <!-- 叶子：薄荷绿 -->
+          <path d="M 30 90 Q 50 70 70 95 Q 50 100 30 90 Z" fill="#bcd9c8" opacity="0.85"/>
+          <path d="M 120 60 Q 140 45 155 70 Q 135 75 120 60 Z" fill="#8eb89e" opacity="0.85"/>
+          <path d="M 60 130 Q 80 110 100 130 Q 80 140 60 130 Z" fill="#bcd9c8" opacity="0.7"/>
+          <!-- 细枝条 -->
+          <path d="M 20 110 Q 60 80 100 100 Q 130 90 170 70" stroke="#8eb89e" stroke-width="1" fill="none" opacity="0.6"/>
+          <!-- 小花苞 -->
+          <circle cx="75" cy="105" r="4" fill="#e8c5d0"/>
+          <circle cx="135" cy="115" r="3" fill="#c8dde8"/>
+          <circle cx="25" cy="70"  r="3" fill="#faf6ef" stroke="#d4a0b0" stroke-width="0.5"/>
         </svg>
 
-        <!-- 浮动信息卡：参考图 2 的拍卖卡片 -->
+        <!-- 鲜花装饰：右下角 -->
+        <svg class="hero__floral hero__floral--br" viewBox="0 0 200 200" aria-hidden="true">
+          <g transform="translate(160 150)">
+            <circle r="20" fill="#faf6ef" stroke="#c8dde8" stroke-width="1"/>
+            <circle r="14" fill="#faf6ef" stroke="#7ba8c4" stroke-width="0.8"/>
+            <circle r="8"  fill="#c8dde8"/>
+            <circle r="4"  fill="#7ba8c4"/>
+          </g>
+          <g transform="translate(110 170)">
+            <circle r="15" fill="#f0d8df" stroke="#d4a0b0" stroke-width="0.8"/>
+            <circle r="10" fill="#e8c5d0"/>
+            <circle r="5"  fill="#d4a0b0"/>
+          </g>
+          <path d="M 130 120 Q 110 140 90 165 Q 80 175 60 180" stroke="#8eb89e" stroke-width="1" fill="none" opacity="0.6"/>
+          <path d="M 150 110 Q 170 130 175 160" stroke="#8eb89e" stroke-width="1" fill="none" opacity="0.5"/>
+          <path d="M 50 130 Q 70 110 85 130 Q 65 138 50 130 Z" fill="#bcd9c8" opacity="0.75"/>
+          <path d="M 90 100 Q 110 85 125 105 Q 105 113 90 100 Z" fill="#8eb89e" opacity="0.75"/>
+          <circle cx="70" cy="120" r="3" fill="#c8dde8"/>
+          <circle cx="135" cy="140" r="3" fill="#e8c5d0"/>
+        </svg>
+
+        <!-- 横版风景图框：替代原拱形竖版 -->
+        <div class="hero__frame" id="heroFrame">
+          <!-- JS 会判断 profile.avatar / profile.heroLandscape 是否填了，没填用默认 assets/hero/landscape.jpg -->
+        </div>
+
+        <svg class="hero__sparkle" viewBox="0 0 40 40" aria-hidden="true">
+          <path d="M20 0 L23 17 L40 20 L23 23 L20 40 L17 23 L0 20 L17 17 Z" fill="#c9b68a" />
+        </svg>
+
         <div class="hero__card">
-          <span class="hero__card-label">现居</span>
-          <span class="hero__card-value">中国 · 杭州</span>
+          <span class="hero__card-label" id="heroCardLabel">现居</span>
+          <span class="hero__card-value" id="heroCardValue">中国 · 江西</span>
         </div>
       </div>
     </div>
@@ -141,54 +157,98 @@
     <div class="about__grid">
       <div class="about__bio">
         <p>
-          你好，我是<span class="accent">孟辰</span>，一名独立视觉设计师。
-          过去五年里，我专注于电商视觉设计与短剧漫剧创作，
-          为多个消费品牌打造从详情页、主图到品牌 KV 的完整视觉链路。
+          你好，我是 <span class="accent">zoumengchen（邹梦晨）</span>。
+          毕业于山东外国语职业技术大学，原从事财务与电商运营工作，
+          因工作场景中持续接触商品图、平台素材与视觉判断，
+          逐渐感受到图像内容的力量，并转向视觉设计与 AIGC 创作。
         </p>
         <p>
-          我相信"好的设计是被人看见的叙事"——
-          无论是产品页的转化路径，还是短剧里的镜头节奏，
-          最终都在讲一个让人愿意停留的故事。
+          现在主攻 <span class="accent">AIGC 创作</span>——用 AI 工具生成电商视觉、短剧漫剧、生活向内容。
+          我相信 AI 正在重写内容创作链路，
+          而愿意把"传统判断力"和"AI 工具链"接起来的创作者，会站到新一段红利的前排。
         </p>
 
         <div class="about__tags">
-          <span>电商详情页</span>
-          <span>品牌主视觉</span>
+          <span>AIGC 创作</span>
+          <span>电商平面设计</span>
           <span>短剧分镜</span>
           <span>漫剧配色</span>
           <span>动效合成</span>
           <span>Adobe 全家桶</span>
         </div>
 
-        <a href="#" class="link-arrow" download>
-          <span>下载完整简历 PDF</span>
+        <a href="#contact" class="link-arrow">
+          <span>联系我获取完整简历</span>
           <span class="link-arrow__icon">↓</span>
         </a>
       </div>
 
       <div class="about__timeline">
-        <h3 class="timeline__heading">教育与经历</h3>
+        <h3 class="timeline__heading">经历</h3>
 
         <ol class="timeline">
+          <!-- 新增：AIGC 转型 -->
           <li class="timeline__item">
             <span class="timeline__year">2026 — 至今</span>
-            <span class="timeline__title">独立设计师 / 自由职业</span>
-            <span class="timeline__desc">承接电商视觉与短剧漫剧项目，服务过消费、美妆、文娱等多个行业品牌。</span>
+            <span class="timeline__title">独立 AIGC 创作者 · 视觉设计</span>
+            <span class="timeline__desc">
+              系统学习 AIGC（文生图 / 图生视频 / 漫剧生成），转向 AIGC 创作。
+              已完成多组电商平面设计作品与 AI 短剧漫剧作品，
+              持续输出电商视觉、短剧漫剧、生活向内容。
+            </span>
           </li>
+
           <li class="timeline__item">
-            <span class="timeline__year">2022 — 2026</span>
-            <span class="timeline__title">视觉设计师 · 某电商品牌部</span>
-            <span class="timeline__desc">主导大促活动视觉（618 / 双11），搭建品牌视觉规范，详情页转化率提升 23%。</span>
+            <span class="timeline__year">2025.07 — 2026.02</span>
+            <span class="timeline__title">抖音平台客服 · 南昌博岳通信</span>
+            <span class="timeline__desc">
+              日均服务 70+ 用户，处理咨询 / 退款 / 投诉，
+              满意度 90% 以上；熟练操作平台工单系统，精准记录并流转，
+              在高强度工作中锤炼情绪管理与抗压能力。
+            </span>
           </li>
+
           <li class="timeline__item">
-            <span class="timeline__year">2018 — 2022</span>
-            <span class="timeline__title">视觉传达设计 · 本科</span>
-            <span class="timeline__desc">系统学习平面、字体、版式与动态设计，毕业作品获院级优秀。</span>
+            <span class="timeline__year">2025.04 — 2025.05</span>
+            <span class="timeline__title">希音图片审核专员 · 辽宁人瑞（日照分公司）</span>
+            <span class="timeline__desc">
+              站内外商品图片比对，从尺寸/外观/材质判断同款，
+              日均处理 1500+，准确率 92% 以上——这也是视觉敏感度的早期训练。
+            </span>
+          </li>
+
+          <li class="timeline__item">
+            <span class="timeline__year">2024.09 — 2025.02</span>
+            <span class="timeline__title">客户经理助理 · 日照银行</span>
+            <span class="timeline__desc">
+              整理开发商资质资料、操作综合信贷与动产融资系统，
+              核对流水与还款台账，为相关部门风控判断提供数据支撑。
+            </span>
+          </li>
+
+          <li class="timeline__item">
+            <span class="timeline__year">2021.09 — 2025.07</span>
+            <span class="timeline__title">大数据与财务管理 · 本科 · 山东外国语职业技术大学</span>
+            <span class="timeline__desc">
+              主修成本控制、预算管理、税法、税务筹划；
+              期间用用友系统完成全套账务处理与全面预算编制，
+              形成对"数据底色"的理解，也成了之后做 AIGC 数据化创作的拐点。
+            </span>
           </li>
         </ol>
+
+        <h3 class="timeline__heading" style="margin-top: 2.4rem">证书</h3>
+        <div class="about__tags">
+          <span>初级会计证书</span>
+          <span>1+X 数字化中级管理会计证书</span>
+          <span>普通话二甲</span>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- 装饰带 1：海岸春景（图 4）—— 简历与电商之间 -->
+  <div class="decorband" data-img="assets/decor/coast.png" aria-hidden="true"></div>
 
   <!-- ============ 02 · 电商平面设计 ============ -->
   <section class="section section--deep" id="ecommerce">
@@ -203,80 +263,21 @@
       从主图、详情页到大促 KV——为品牌的每一次曝光，搭建完整的视觉叙事链路。
     </p>
 
-    <div class="works__grid">
-      <!-- 卡片 1 -->
-      <article class="work work--tall" data-category="详情页">
-        <div class="work__media" data-bg="sage">
-          <span class="work__year">2026</span>
-          <span class="work__type">详情页设计</span>
-        </div>
-        <div class="work__info">
-          <h3 class="work__title">护肤品牌 · 长图详情页</h3>
-          <p class="work__desc">主推成分可视化 + 卖点分镜，撑起 30 屏长图叙事。</p>
-        </div>
-      </article>
-
-      <!-- 卡片 2 -->
-      <article class="work" data-category="主图">
-        <div class="work__media" data-bg="terra">
-          <span class="work__year">2026</span>
-          <span class="work__type">直通车主图</span>
-        </div>
-        <div class="work__info">
-          <h3 class="work__title">小家电 · 五图全套</h3>
-          <p class="work__desc">场景化使用情境 + 卖点提炼，CTR 提升 18%。</p>
-        </div>
-      </article>
-
-      <!-- 卡片 3 -->
-      <article class="work" data-category="KV">
-        <div class="work__media" data-bg="tan">
-          <span class="work__year">2025</span>
-          <span class="work__type">大促主视觉</span>
-        </div>
-        <div class="work__info">
-          <h3 class="work__title">双11 · 品牌主视觉</h3>
-          <p class="work__desc">跨品类联动 KV，统一全渠道视觉语言。</p>
-        </div>
-      </article>
-
-      <!-- 卡片 4 -->
-      <article class="work work--wide" data-category="Banner">
-        <div class="work__media" data-bg="forest">
-          <span class="work__year">2025</span>
-          <span class="work__type">活动 Banner 组</span>
-        </div>
-        <div class="work__info">
-          <h3 class="work__title">618 全周期 Banner</h3>
-          <p class="work__desc">预热 / 爆发 / 返场三阶段，共 24 张系列延展。</p>
-        </div>
-      </article>
-
-      <!-- 卡片 5 -->
-      <article class="work" data-category="包装">
-        <div class="work__media" data-bg="sage">
-          <span class="work__year">2024</span>
-          <span class="work__type">礼盒包装</span>
-        </div>
-        <div class="work__info">
-          <h3 class="work__title">春节限定礼盒</h3>
-          <p class="work__desc">非遗纹样重构 + 烫金工艺，单 SKU 售罄率 96%。</p>
-        </div>
-      </article>
-
-      <!-- 卡片 6 -->
-      <article class="work" data-category="详情页">
-        <div class="work__media" data-bg="terra">
-          <span class="work__year">2024</span>
-          <span class="work__type">详情页设计</span>
-        </div>
-        <div class="work__info">
-          <h3 class="work__title">食品类目 · 详情页</h3>
-          <p class="work__desc">原料溯源 + 食欲感镜头，吃透品类决策路径。</p>
-        </div>
-      </article>
+    <!-- 分类筛选条：JS 自动按 data/works.js 里的 category 字段生成 -->
+    <div class="filterbar" id="filter-ecommerce" data-section="ecommerce">
+      <button class="filterbar__btn is-active" data-filter="all">全部</button>
     </div>
+
+    <!-- 作品网格：JS 从 data/works.js 渲染 -->
+    <div class="works__grid" id="grid-ecommerce"></div>
+
+    <p class="empty-hint" id="empty-ecommerce" hidden>
+      还没有作品 —— 加作品请看 <code>MANAGE.md</code>
+    </p>
   </section>
+
+  <!-- 装饰带 2：日本小火车（图 3）—— 电商与短剧漫剧之间 -->
+  <div class="decorband" data-img="assets/decor/train.png" aria-hidden="true"></div>
 
   <!-- ============ 03 · 短剧漫剧 ============ -->
   <section class="section" id="drama">
@@ -291,53 +292,19 @@
       从分镜脚本到最终成片——把品牌、人物、情绪变成一帧一帧的节奏。
     </p>
 
-    <div class="drama__list">
-      <article class="drama">
-        <div class="drama__thumb" data-bg="terra">
-          <button class="drama__play" aria-label="播放预览">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <span class="drama__duration">12:34</span>
-          <span class="drama__ep">EP.08</span>
-        </div>
-        <div class="drama__info">
-          <span class="drama__cat">竖屏短剧</span>
-          <h3 class="drama__title">溯光 · 倒数三日</h3>
-          <p class="drama__desc">分镜 / 配色 / 后期合成 · 90 集短剧系列，单集播放破百万。</p>
-        </div>
-      </article>
-
-      <article class="drama">
-        <div class="drama__thumb" data-bg="sage">
-          <button class="drama__play" aria-label="播放预览">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <span class="drama__duration">08:12</span>
-          <span class="drama__ep">EP.03</span>
-        </div>
-        <div class="drama__info">
-          <span class="drama__cat">漫剧</span>
-          <h3 class="drama__title">雾港档案</h3>
-          <p class="drama__desc">分镜插画 + 节奏剪辑 · 悬疑题材，B 端评分 8.6。</p>
-        </div>
-      </article>
-
-      <article class="drama">
-        <div class="drama__thumb" data-bg="forest">
-          <button class="drama__play" aria-label="播放预览">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <span class="drama__duration">15:08</span>
-          <span class="drama__ep">EP.12</span>
-        </div>
-        <div class="drama__info">
-          <span class="drama__cat">竖屏短剧</span>
-          <h3 class="drama__title">半夏与茶</h3>
-          <p class="drama__desc">视觉监督 · 治愈系日常向，主角 IP 衍生品销售超预期。</p>
-        </div>
-      </article>
+    <div class="filterbar" id="filter-drama" data-section="drama">
+      <button class="filterbar__btn is-active" data-filter="all">全部</button>
     </div>
+
+    <div class="drama__list" id="grid-drama"></div>
+
+    <p class="empty-hint" id="empty-drama" hidden>
+      还没有作品 —— 加作品请看 <code>MANAGE.md</code>
+    </p>
   </section>
+
+  <!-- 装饰带 3：高山秋色（图 7）—— 短剧与生活之间 -->
+  <div class="decorband" data-img="assets/decor/mountain.png" aria-hidden="true"></div>
 
   <!-- ============ 04 · 生活日常 ============ -->
   <section class="section section--deep" id="life">
@@ -352,52 +319,19 @@
       做设计之外，我也在记录——一杯咖啡、一段路、一次失败的菜。
     </p>
 
-    <div class="journal__grid">
-      <article class="journal">
-        <div class="journal__media" data-bg="tan">
-          <span class="journal__date">11·02</span>
-        </div>
-        <div class="journal__body">
-          <span class="journal__tag">手帐</span>
-          <h3 class="journal__title">十月的颜色摘抄</h3>
-          <p class="journal__excerpt">从街角银杏到灶台番茄——把这个月遇到的红色都贴进了本子。</p>
-        </div>
-      </article>
-
-      <article class="journal">
-        <div class="journal__media" data-bg="sage">
-          <span class="journal__date">10·28</span>
-        </div>
-        <div class="journal__body">
-          <span class="journal__tag">在路上</span>
-          <h3 class="journal__title">乌镇的一个下午</h3>
-          <p class="journal__excerpt">河边的茶馆、船桨的水声——放空是另一种创作。</p>
-        </div>
-      </article>
-
-      <article class="journal">
-        <div class="journal__media" data-bg="terra">
-          <span class="journal__date">10·19</span>
-        </div>
-        <div class="journal__body">
-          <span class="journal__tag">厨房</span>
-          <h3 class="journal__title">第一次成功的舒芙蕾</h3>
-          <p class="journal__excerpt">蛋白打发到提起来有尖角——和做设计一样，分寸感最重要。</p>
-        </div>
-      </article>
-
-      <article class="journal">
-        <div class="journal__media" data-bg="forest">
-          <span class="journal__date">10·11</span>
-        </div>
-        <div class="journal__body">
-          <span class="journal__tag">读纸</span>
-          <h3 class="journal__title">重读《设计中的设计》</h3>
-          <p class="journal__excerpt">原研哉那句"再熟悉化"——每次读都有新解。</p>
-        </div>
-      </article>
+    <div class="filterbar" id="filter-life" data-section="life">
+      <button class="filterbar__btn is-active" data-filter="all">全部</button>
     </div>
+
+    <div class="journal__grid" id="grid-life"></div>
+
+    <p class="empty-hint" id="empty-life" hidden>
+      还没有作品 —— 加作品请看 <code>MANAGE.md</code>
+    </p>
   </section>
+
+  <!-- 装饰带 4：金黄秋叶（图 6）—— 生活与联系之间 -->
+  <div class="decorband" data-img="assets/decor/autumn.png" aria-hidden="true"></div>
 
   <!-- ============ 05 · 联系 ============ -->
   <footer class="footer" id="contact">
@@ -406,14 +340,16 @@
         <span class="section__num">05</span>
         <h2 class="footer__headline">有项目想聊聊？</h2>
         <p class="footer__lede">
-          电商视觉、短剧漫剧、品牌合作——欢迎来信。<br />
+          AIGC 创作、电商视觉、短剧漫剧、品牌合作——欢迎来信。<br />
           通常 24 小时内回复。
         </p>
 
-        <a href="mailto:your@email.com" class="footer__email">
-          your@email.com
+        <a href="mailto:3204913134@qq.com" class="footer__email" id="footerEmail">
+          3204913134@qq.com
           <span class="link-arrow__icon">→</span>
         </a>
+
+        <p class="footer__phone" id="footerPhone">电话 / WeChat：19859923183</p>
       </div>
 
       <div class="footer__links">
@@ -425,20 +361,19 @@
         </div>
         <div class="footer__col">
           <h4>关注我</h4>
-          <a href="https://github.com/zoumengchen" target="_blank" rel="noopener">GitHub</a>
-          <a href="#" target="_blank" rel="noopener">小红书</a>
-          <a href="#" target="_blank" rel="noopener">微博</a>
+          <!-- JS 根据 data/profile.js 的 socials 数组渲染 -->
+          <div id="footerSocials" class="footer__socials"></div>
         </div>
         <div class="footer__col">
           <h4>其它</h4>
           <a href="#about">关于我</a>
-          <a href="#">简历下载</a>
+          <a href="#hero">回到顶部</a>
         </div>
       </div>
     </div>
 
     <div class="footer__bottom">
-      <span>© 2026 孟辰 · Zou Mengchen</span>
+      <span>© 2026 zoumengchen · 邹梦晨</span>
       <span>Crafted with care · Hosted on GitHub Pages</span>
     </div>
   </footer>
