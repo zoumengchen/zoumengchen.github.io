@@ -19,15 +19,20 @@
     if (sub)   sub.innerHTML = P.tagline + (P.intro ? '<br />' + P.intro : '');
   }
 
-  // Hero 统计
+  // Hero 统计（stats 为空数组时隐藏整个模块，不留悬空横线）
   const statsBox = document.getElementById('heroStats');
-  if (statsBox && Array.isArray(P.stats)) {
-    statsBox.innerHTML = P.stats.map(s => `
-      <div class="stat">
-        <span class="stat__num">${s.num}<sup>+</sup></span>
-        <span class="stat__label">${s.label}</span>
-      </div>
-    `).join('');
+  if (statsBox) {
+    if (Array.isArray(P.stats) && P.stats.length > 0) {
+      statsBox.innerHTML = P.stats.map(s => `
+        <div class="stat">
+          <span class="stat__num">${s.num}<sup>+</sup></span>
+          <span class="stat__label">${s.label}</span>
+        </div>
+      `).join('');
+      statsBox.style.display = '';
+    } else {
+      statsBox.style.display = 'none';
+    }
   }
 
   // Hero 横版风景图框
